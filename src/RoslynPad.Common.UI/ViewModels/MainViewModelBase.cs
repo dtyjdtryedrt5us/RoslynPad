@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
@@ -22,7 +22,7 @@ namespace RoslynPad.UI
         private readonly ITelemetryProvider _telemetryProvider;
         private readonly ICommandProvider _commands;
         private readonly DocumentFileWatcher _documentFileWatcher;
-        private static readonly Version _currentVersion = new Version(14, 1);
+        private static readonly Version _currentVersion = new Version(1, 0);
         private static readonly string _currentVersionVariant = "";
 
         public const string NuGetPathVariableName = "$NuGet";
@@ -187,7 +187,7 @@ namespace RoslynPad.UI
                 var currentVersion = _currentVersion.Minor <= 0 && _currentVersion.Build <= 0
                     ? _currentVersion.Major.ToString()
                     : _currentVersion.ToString();
-                var title = "RoslynPad " + currentVersion;
+                var title = "RoslynPad for Monolithsoft" + currentVersion;
                 if (!string.IsNullOrEmpty(_currentVersionVariant))
                 {
                     title += "-" + _currentVersionVariant;

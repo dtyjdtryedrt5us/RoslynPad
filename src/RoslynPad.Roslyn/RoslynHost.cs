@@ -103,7 +103,7 @@ namespace RoslynPad.Roslyn
         protected virtual ParseOptions CreateDefaultParseOptions()
         {
             return new CSharpParseOptions(kind: SourceCodeKind.Script,
-                preprocessorSymbols: PreprocessorSymbols, languageVersion: LanguageVersion.CSharp8);
+                preprocessorSymbols: PreprocessorSymbols, languageVersion: LanguageVersion.CSharp6);
         }
 
         public MetadataReference CreateMetadataReference(string location)

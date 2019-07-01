@@ -29,7 +29,7 @@ namespace RoslynPad.Hosting
     /// </summary>
     internal class AssemblyExecutionHost : IExecutionHost
     {
-        private static readonly CSharpParseOptions _parseOptions = new CSharpParseOptions(preprocessorSymbols: new[] { "__DEMO__", "__DEMO_EXPERIMENTAL__" }, languageVersion: LanguageVersion.CSharp8, kind: SourceCodeKind.Script);
+        private static readonly CSharpParseOptions _parseOptions = new CSharpParseOptions(preprocessorSymbols: new[] { "__DEMO__", "__DEMO_EXPERIMENTAL__" }, languageVersion: LanguageVersion.CSharp6, kind: SourceCodeKind.Script);
 
         private static readonly SyntaxTree InitHostSyntax = ParseSyntaxTree(
             @"RoslynPad.Runtime.RuntimeInitializer.Initialize();", _parseOptions);
@@ -192,7 +192,7 @@ namespace RoslynPad.Hosting
                 var cancellationToken = executeCts.Token;
 
                 var script = CreateScriptRunner(code, optimizationLevel);
-
+                
                 _assemblyPath = Path.Combine(BuildPath, $"RoslynPad-{Name}.{AssemblyExtension}");
                 _depsFile = Path.ChangeExtension(_assemblyPath, ".deps.json");
 
@@ -265,13 +265,21 @@ namespace RoslynPad.Hosting
             bool CopyReferences(IEnumerable<string> references)
             {
                 var copied = false;
-
-                foreach (var file in references)
+                var originalCurrentDirectory = Directory.GetCurrentDirectory();
+                try
                 {
-                    if (CopyIfNewer(file, Path.Combine(BuildPath, Path.GetFileName(file))))
+                    Directory.SetCurrentDirectory(_parameters.WorkingDirectory);
+                    foreach (var file in references)
                     {
-                        copied = true;
+                        if (CopyIfNewer(file, Path.Combine(BuildPath, Path.GetFileName(file))))
+                        {
+                            copied = true;
+                        }
                     }
+                }
+                finally
+                {
+                    Directory.SetCurrentDirectory(originalCurrentDirectory);
                 }
 
                 return copied;

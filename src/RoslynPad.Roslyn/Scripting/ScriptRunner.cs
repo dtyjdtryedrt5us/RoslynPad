@@ -291,7 +291,7 @@ namespace RoslynPad.Roslyn.Scripting
                 sourceReferenceResolver: SourceResolver,
                 metadataReferenceResolver: MetadataResolver,
                 assemblyIdentityComparer: AssemblyIdentityComparer.Default,
-                nullableContextOptions: NullableContextOptions.Enable
+                nullableContextOptions: NullableContextOptions.Disable
             );
             //.WithTopLevelBinderFlags(BinderFlags.IgnoreCorLibraryDuplicatedTypes),
 

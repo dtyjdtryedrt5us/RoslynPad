@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Composition;
 using System.IO;
@@ -185,6 +185,7 @@ namespace RoslynPad.UI
             SendErrors = true;
             EditorFontSize = EditorFontSizeDefault;
             LiveModeDelayMs = LiveModeDelayMsDefault;
+            DocumentPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Environment.GetCommandLineArgs()[0])), "ConnectManager", "Plugins");
         }
 
         private void SaveSettings()

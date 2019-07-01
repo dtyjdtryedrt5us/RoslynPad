@@ -18,7 +18,7 @@ namespace RoslynPad.Roslyn
         
         public CachedScriptMetadataResolver(string workingDirectory, bool useCache = false)
         {
-            _inner = ScriptMetadataResolver.Default.WithBaseDirectory(workingDirectory);
+            _inner = ScriptMetadataResolver.Default.WithBaseDirectory(workingDirectory).WithSearchPaths(workingDirectory);
             if (useCache)
             {
                 _cache = new ConcurrentDictionary<string, ImmutableArray<PortableExecutableReference>>();

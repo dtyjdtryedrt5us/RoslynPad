@@ -17,6 +17,10 @@ namespace RoslynPad
     {
         public IEnumerable<ExecutionPlatform> GetExecutionPlatforms()
         {
+            var targetFrameworkName = GetTargetFrameworkName();
+            yield return new ExecutionPlatform("Desktop x64", targetFrameworkName, Array.Empty<PlatformVersion>(), Architecture.X64, string.Empty, string.Empty, isDesktop: true);
+            yield return new ExecutionPlatform("Desktop x86", targetFrameworkName, Array.Empty<PlatformVersion>(), Architecture.X86, string.Empty, string.Empty, isDesktop: true);
+
             var dotnetPath = Path.Combine(Environment.GetEnvironmentVariable("ProgramW6432"), "dotnet");
             var dotnetExe = Path.Combine(dotnetPath, "dotnet.exe");
             if (File.Exists(dotnetExe) &&
@@ -25,9 +29,6 @@ namespace RoslynPad
                 yield return new ExecutionPlatform("Core x64", "", coreVersions, Architecture.X64, dotnetExe, string.Empty);
             }
 
-            var targetFrameworkName = GetTargetFrameworkName();
-            yield return new ExecutionPlatform("Desktop x86", targetFrameworkName, Array.Empty<PlatformVersion>(), Architecture.X86, string.Empty, string.Empty, isDesktop: true);
-            yield return new ExecutionPlatform("Desktop x64", targetFrameworkName, Array.Empty<PlatformVersion>(), Architecture.X64, string.Empty, string.Empty, isDesktop: true);
         }
 
         private IReadOnlyList<PlatformVersion> GetCoreVersions(string dotnetPath)
