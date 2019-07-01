@@ -13,6 +13,10 @@
     <NoWarn>1701;1702</NoWarn>
     <RuntimeIdentifier>win</RuntimeIdentifier>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
   <ItemGroup>
     <None Remove="**\*.xshd" />
     <EmbeddedResource Include="**\*.xshd" />

@@ -4,6 +4,7 @@ using System.Composition.Hosting;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
@@ -53,14 +54,21 @@ namespace RoslynPad
         }
 
         protected override async void OnClosing(CancelEventArgs e)
-        {
+        {               
             base.OnClosing(e);
 
             if (!_isClosing)
             {
+                if (_viewModel.OpenDocuments.Any(p => p.IsDirty)
+                    && MessageBoxResult.Yes != MessageBox.Show("保存されていないドキュメントがあります。本当に閉じますか？\r\n（ドキュメントは保存されません）", "確認", MessageBoxButton.YesNo, MessageBoxImage.Information))
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
                 SaveDockLayout();
                 SaveWindowLayout();
-                
+
                 _isClosing = true;
                 IsEnabled = false;
                 e.Cancel = true;

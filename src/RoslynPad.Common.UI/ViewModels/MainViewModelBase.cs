@@ -124,15 +124,15 @@ namespace RoslynPad.UI
             OpenDocumentFromCommandLine();
             await OpenAutoSavedDocuments().ConfigureAwait(true);
 
-            if (HasCachedUpdate())
-            {
-                HasUpdate = true;
-            }
-            else
-            {
-                // ReSharper disable once UnusedVariable
-                var task = Task.Run(CheckForUpdates);
-            }
+            //if (HasCachedUpdate())
+            //{
+            //    HasUpdate = true;
+            //}
+            //else
+            //{
+            //    // ReSharper disable once UnusedVariable
+            //    var task = Task.Run(CheckForUpdates);
+            //}
         }
 
         private void OpenDocumentFromCommandLine()
@@ -429,9 +429,9 @@ namespace RoslynPad.UI
             }
         }
 
-        public async Task OnExit()
+        public void OnExit()
         {
-            await AutoSaveOpenDocuments().ConfigureAwait(false);
+            //await AutoSaveOpenDocuments().ConfigureAwait(false);
             IOUtilities.PerformIO(() => Directory.Delete(Path.Combine(Path.GetTempPath(), "RoslynPad"), recursive: true));
         }
 
